@@ -141,7 +141,8 @@ public class PlayerController : MonoBehaviour
 
     void StartPaint()
     {
-        patrolling = false;
+        if(patrol)
+            patrolling = false;
         isPainting = paintAmount != 0;
         Timing.KillCoroutines("SP");
         Timing.RunCoroutine(_StartPaint().CancelWith(gameObject), "SP");
@@ -243,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
     void PausePaint()
     {
-        if (!gameEnded)
+        if (!gameEnded && patrol)
             Patrol();
         isPainting = false;
         anim.Play("Idle");
