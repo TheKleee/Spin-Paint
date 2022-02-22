@@ -141,8 +141,12 @@ public class PlayerController : MonoBehaviour
 
     void StartPaint()
     {
-        if(patrol)
+        if (patrol)
+        {
+            anim.Play("Idle");
             patrolling = false;
+            Timing.KillCoroutines("Patrol");
+        }
         isPainting = paintAmount != 0;
         Timing.KillCoroutines("SP");
         Timing.RunCoroutine(_StartPaint().CancelWith(gameObject), "SP");
@@ -392,7 +396,7 @@ public class PlayerController : MonoBehaviour
         if (dist > 0.2f)
         {
             anim.Play("Walk");
-            while (dist > 0.2f)
+            do
             {
                 if (!patrolling) break;
                 //Rotation:
@@ -411,7 +415,7 @@ public class PlayerController : MonoBehaviour
                 dist = Vector3.Distance(transform.localPosition, patrolPos[patPoint]);
 
                 yield return Timing.WaitForSeconds(.025f);
-            }
+            } while (dist > 0.2f || patrolling);
             anim.Play("Idle");
             if (dist < 0.25f)
                 transform.localPosition = patrolPos[patPoint];
