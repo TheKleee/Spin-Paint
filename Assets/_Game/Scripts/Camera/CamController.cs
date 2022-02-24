@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MEC;
-//using Tabtale.TTPlugins;
+using Tabtale.TTPlugins;
 
 [RequireComponent(typeof(Camera))]
 public class CamController : MonoBehaviour
@@ -23,7 +23,7 @@ public class CamController : MonoBehaviour
 
     private void Awake()
     {
-        //TTPCore.Setup();
+        TTPCore.Setup();
         cam = GetComponent<Camera>();
         moveAble = true;
         //transform.localPosition = offsetPos;
